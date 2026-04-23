@@ -1,17 +1,28 @@
-Obsah repozitára: README.md bank-additional-full.csv - súbor obsahujúci dáta s ktorými sme pracovali. Bakalarka.ipynb - programový súbor
+# Identifikácia autocitácií v databáze CREPC
+Tento repozitár obsahuje zdrojový kód k práci zameranej na automatickú identifikáciu autocitácií vo vedeckých publikáciách evidovaných v systéme CREPC (Centrálny register publikačnej činnosti).
+Súčasťou riešenia je webová aplikácia, ktorá umožňuje vyhľadávať publikácie autora a zobrazovať detegované autocitácie prostredníctvom prehľadného používateľského rozhrania.
 
-Názov práce: Analýza termínovaných vkladov v bankovom sektore s využitím metód dátovej analytiky
+# Charakteristika riešenia
+Systém kombinuje prístup k CREPC API na získavanie publikačných záznamov s výpočtom sémantickej podobnosti medzi citáciami. Na základe podobnosti textov sa určuje, či ide o autocitáciu, teda prípad, keď autor cituje svoju vlastnú predchádzajúcu prácu.
 
-Cieľ práce: Hlavným cieľom práce bolo spracovanie a analýza dát príslušnej dátovej zbierok Portugalskej národnej banky, ktorá obsahuje dáta o klientoch , ktorí boli kontaktovaní bankou za účelom získania týchto informácií pre lepšiu analýzu a predikciu využitia služby termínovaného vkladu.
+# Popis súborov
+- crepc_api.py – zabezpečuje komunikáciu s CREPC API. Umožňuje vyhľadávať publikácie podľa autora a sťahovať ich metadáta vrátane zoznamu citácií.
+- generate_dataset.py – spracúva získané dáta a vytvára dataset pre testovanie a vyhodnotenie. Zahŕňa čistenie textu, párovanie citácií a rozdelenie na trénovaciu a testovaciu množinu.
+- similarity.py – počíta sémantickú podobnosť medzi pármi textov pomocou jazykových embeddingov a kosinusovej podobnosti. Na základe zvoleného prahu rozhoduje, či ide o autocitáciu.
+- evaluate.py – vyhodnocuje výkon systému pomocou metrík presnosti, úplnosti a F1-skóre na označenej testovacej množine.
+- my_app.py – webová aplikácia umožňujúca zadať meno autora, prehľadávať jeho publikácie a zobraziť detegované autocitácie.
 
-Popis: V tejto práci sme sa zemerali na vytvorenie 6 modelov klasifikácie zákazníkov Portugalskej Národnej Banky.Taktiež sme nevyvážený dataset vyvážili pomocou nadvzorkovacích metód SMOTE a ADASYN. Predtým sme ešte dáta museli pochopiť a tak sme si zobrazili ich početnosť graficky. Taktiež sme zisťovali prítomnosť chybných či chybajúich dát. V prípade veľkeho množstva chybajúcich dát sme atribút odstránili, v prípade malého množstva chýbajúcich dát sme chýbajúce dáta z datasetu odstránili.
+# Systémové požiadavky
+Na spustenie je potrebné mať nainštalovaný Python 3.9 alebo novší a všetky knižnice uvedené v súbore requirements.txt.
 
-Dataset: Pôvodný dataset obsahuje 41 188 záznamov a 21 atribútov. Námi vytvorené 2 datasety: Bank resp final.csv obsahuje 38 245 záznamov a 20 atribútov. Bank2 resp final2.csv obsahuje 38 245 záznamov a 17 atribútov.
+# Spustenie aplikácie
+1. Naklonovanie repozitára `git clone <repo-url>`
+`cd <repo>`
+3. Inštalácia závislostí
+`pip install -r requirements.txt`
+4. Spustenie aplikácie
+`my_app.py`
+Po spustení je aplikácia dostupná na adrese `http://127.0.0.1:5000`
 
-Dáta sme získali z online portálu UC Irvine Machine Learning Repository, ktoré sú k dispozícií na následovnom odkaze: https://archive.ics.uci.edu/dataset/222/bank+marketing
-
-Programovací jazyk: Python
-
-Autor: Damián Husár, Technická Univerzita v Košiciach, 2024
-
-Programový súbor, ktorý je k dispozící v tomto priečinku je súčasťou praktickej časti bakalárskej práce.
+# Dáta
+Použité dáta pochádzajú z verejne dostupného rozhrania CREPC. Z dôvodu objemu nie sú surové dáta súčasťou repozitára. Dataset je možné vygenerovať spustením skriptu generate_dataset.py.
