@@ -1,4 +1,4 @@
-# Identifikácia autocitácií v databáze CREPC
+# Identifikácia autocitácií v dátach o publikačnej činnosti
  
 Tento repozitár obsahuje zdrojový kód k práci zameranej na automatickú identifikáciu autocitácií vo vedeckých publikáciách evidovaných v systéme CREPC (Centrálny register publikačnej činnosti).
  
